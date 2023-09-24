@@ -8,4 +8,12 @@ import { FormsModule } from '@angular/forms';
 })
 export class CalculadoraSalarioComponent {
 
+  datos: any = {
+    salario: 0,
+    isss: '0.00',
+    afp: '0.00',
+    renta: '0.00',
+    liquido: '0.00'
+  }
+  
 }
