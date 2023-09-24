@@ -27,7 +27,23 @@ export class CalculadoraSalarioComponent {
       this.datos.afp = (this.datos.salario * 0.0725).toFixed(2);
 
       //Condicionales Renta
-      this.datos.renta = '0.00';
+      let salarioGravado = (this.datos.salario - (+this.datos.isss + +this.datos.afp)).toFixed(2);
+
+      if(parseFloat(salarioGravado) < 472.00){ // TRAMO I
+        this.datos.renta = '0.00';
+      }
+      else if(parseFloat(salarioGravado) > 472.01 && parseFloat(salarioGravado) < 895.24){ // TRAMO II
+        this.datos.renta = (((+salarioGravado - 472.00)*0.10) + 17.67).toFixed(2);
+      } 
+      else if(parseFloat(salarioGravado) > 895.25 && parseFloat(salarioGravado) < 2038.10){ // TRAMO III
+        this.datos.renta = (((+salarioGravado - 895.24)*0.20) + 60.00).toFixed(2);
+      }
+      else if(parseFloat(salarioGravado) > 2038.11){ // TRAMO IV
+        this.datos.renta = (((+salarioGravado - 2038.10)*0.30) + 288.57).toFixed(2);
+      }      
+      else{
+        this.datos.renta = '0.00';
+      }
 
       this.datos.liquido = (this.datos.salario - (+this.datos.isss + +this.datos.afp + +this.datos.renta)).toFixed(2);
     }
